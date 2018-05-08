@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.luhuan.rxlibrary.ApiStore
 import com.luhuan.rxlibrary.EventBean
+import com.luhuan.rxlibrary.RetrofitProvider
 import com.luhuan.rxlibrary.RxBus
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 disposable!!.dispose()
             }
         })
+        RetrofitProvider.getInstance().create(ApiStore::class.java)
     }
 
     override fun onDestroy() {
