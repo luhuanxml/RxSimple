@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.luhuan.rxlibrary.*
+import com.luhuan.rxsimple.news.ApiStore
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 
