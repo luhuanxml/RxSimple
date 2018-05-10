@@ -53,5 +53,5 @@ dependencies {
     compileOnly 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     compileOnly 'com.squareup.retrofit2:converter-scalars:2.3.0'
     compileOnly 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
-    compileOnly 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
 }
