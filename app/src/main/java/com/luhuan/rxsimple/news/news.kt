@@ -3,10 +3,11 @@ package com.luhuan.rxsimple.news
 import com.luhuan.rxlibrary.RetrofitProvider
 import com.luhuan.rxlibrary.ThreadTransform
 import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 
 interface NewsContact {
     interface Presenter {
-        fun present()
+        fun present():Disposable
     }
 
     interface View {
@@ -23,8 +24,8 @@ class PNews constructor(val view:NewsContact.View): NewsContact.Presenter {
 
     var model: NewsContact.Model=MNews()
 
-    override fun present() {
-        model.getResult().subscribe({view.showResult(it)},{view.onFailure(it)})
+    override fun present() :Disposable{
+        return model.getResult().subscribe({view.showResult(it)},{view.onFailure(it)})
     }
 }
 

@@ -3,11 +3,12 @@ package com.luhuan.rxsimple.news
 import com.luhuan.rxlibrary.RetrofitProvider
 import com.luhuan.rxlibrary.ThreadTransform
 import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 
 interface WordContant{
 
     interface Presenter{
-        fun present()
+        fun present():Disposable
     }
 
     interface View{
@@ -25,8 +26,8 @@ class PWord(val view: WordContant.View):WordContant.Presenter {
 
     private val model:WordContant.Model=MWord()
 
-    override fun present() {
-        model.request().subscribe({view.showWordResult(it)},{view.onFailure(it)})
+    override fun present() :Disposable{
+       return model.request().subscribe({view.showWordResult(it)},{view.onFailure(it)})
     }
 }
 
