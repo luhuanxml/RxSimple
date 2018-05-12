@@ -8,14 +8,13 @@ import com.luhuan.rxsimple.R
 
 class ConstraintAdapter : RecyclerView.Adapter<ConstraintAdapter.Holder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view=LayoutInflater.from(parent.context).inflate(R.layout.item_constraint,parent,
                 false)
         return Holder(view)
     }
 
     override fun onBindViewHolder(holder:Holder, position: Int) {
-
     }
 
     override fun getItemCount(): Int {

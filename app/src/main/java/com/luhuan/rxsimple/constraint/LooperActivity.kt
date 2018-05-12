@@ -12,9 +12,12 @@ class LooperActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_looper)
-        val adapter=ConstraintAdapter()
-        recycler.layoutManager=LinearLayoutManager(this,LinearLayout.VERTICAL,false)
-        recycler.adapter=adapter
-        recycler.addItemDecoration(CustomItemDecoration())
+        val constraintAdapter=ConstraintAdapter()
+        recycler.apply {
+            layoutManager=LinearLayoutManager(context,LinearLayout.VERTICAL,false)
+            adapter=constraintAdapter
+            addItemDecoration(CustomItemDecoration())
+        }
+
     }
 }

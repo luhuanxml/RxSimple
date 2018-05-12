@@ -8,7 +8,9 @@ class CustomItemDecoration : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
         super.getItemOffsets(outRect, view, parent, state)
-        outRect.bottom=4
-        outRect.top=4
+        outRect.bottom=8
+        outRect.top=8
+        outRect.left=16
+        outRect.right=16
     }
 }

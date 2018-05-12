@@ -6,12 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt' // kapt 插件
 
-kapt {
-    generateStubs = true
-}
-
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.luhuan.rxsimple"
         minSdkVersion 19
@@ -19,6 +15,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -31,9 +29,8 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation project(':RxLibrary')
-    //   implementation 'com.luhuan.rxlibrary:RxLibrary:0.0.2'
+    //implementation 'com.luhuan.rxlibrary:RxLibrary:0.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     // Because RxAndroid releases are few and far between, it is recommended you also
@@ -47,5 +44,13 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.16'
     implementation 'org.glassfish:javax.annotation:10.0-b28'
     implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    //Glide4.X需要SDK编译版本27.1.1
+    implementation('com.github.bumptech.glide:glide:4.7.1') {
+        exclude group: "com.android.support"
+    }
+    kapt 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 }
