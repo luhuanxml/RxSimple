@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    tools:context=".photo.PhotoActivity">
+    tools:context=".drag.DragActivity">
 
     <TextView
-        android:id="@+id/delete_view"
+        android:id="@+id/drag_delete_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -20,18 +19,12 @@
         android:textSize="20sp"
         android:visibility="visible"/>
 
-
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/photo_wall"
+        android:id="@+id/drag_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="100dp"
-        android:clipToPadding="false"/>
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:maxLines="2"/>
+        android:clipToPadding="false"
+        android:paddingBottom="50dp"
+        android:paddingTop="100dp"/>
 
 </RelativeLayout>

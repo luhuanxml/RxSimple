@@ -6,7 +6,6 @@ import android.util.Log
 import com.luhuan.rxsimple.R
 import com.luhuan.rxsimple.constraint.LooperActivity
 import com.luhuan.rxsimple.drawer.DrawerActivity
-import com.luhuan.rxsimple.photo.PhotoActivity
 import com.trello.rxlifecycle2.android.ActivityEvent
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.Observable
@@ -53,7 +52,7 @@ class NewsActivity : RxAppCompatActivity(), NewsContact.View, WordContant.View {
         }
 
         content.setOnClickListener {
-            startActivity(Intent(this,PhotoActivity::class.java))
+
         }
 
     }
