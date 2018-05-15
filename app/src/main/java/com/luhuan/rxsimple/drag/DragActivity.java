@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.bean.ImageItem;
@@ -47,13 +49,6 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
         dragRecyclerView=findViewById(R.id.drag_recycler_view);
         dragDeleteView=findViewById(R.id.drag_delete_view);
         mActivity=this;
-        RxPicker.init(new RxPickerImageLoader() {
-            @Override
-            public void display(ImageView imageView, String path, int width, int height) {
-                RequestOptions requestOptions=new RequestOptions().centerCrop();
-                Glide.with(mActivity).load(path).apply(requestOptions).into(imageView);
-            }
-        });
         imageItem = new ImageItem();
         imageItem.setName("ADD_BUTTON");
         mImageItems=new LinkedList<>();
@@ -73,7 +68,8 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
                 if (mImageItems.size()==10){
                     Toast.makeText(mActivity, "最多添加9张图片", Toast.LENGTH_SHORT).show();
                 }else {
-                    RxPicker.of().single(false).limit(1,10-mImageItems.size()).start(mActivity)
+                    RxPicker.of().single(false).camera(true)
+                            .limit(3,10-mImageItems.size()).start(mActivity)
                             .subscribe(new Consumer<List<ImageItem>>() {
                                 @Override
                                 public void accept(List<ImageItem> imageItems) throws Exception {
