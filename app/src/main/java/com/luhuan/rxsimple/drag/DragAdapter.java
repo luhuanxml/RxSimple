@@ -13,7 +13,6 @@ import com.caimuhao.rxpicker.bean.ImageItem;
 import com.luhuan.rxsimple.R;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class DragAdapter extends RecyclerView.Adapter<DragAdapter.Holder> {
 

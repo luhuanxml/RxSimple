@@ -17,7 +17,7 @@
         android:text="拖动到这里删除图片"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        android:visibility="visible"/>
+        android:visibility="invisible"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drag_recycler_view"

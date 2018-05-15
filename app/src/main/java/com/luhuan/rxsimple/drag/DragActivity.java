@@ -7,7 +7,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -28,6 +31,8 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
 
     RecyclerView dragRecyclerView;
 
+    TextView dragDeleteView;
+
     DragAdapter dragAdapter;
 
     DragActivity mActivity;
@@ -40,6 +45,7 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drag);
         dragRecyclerView=findViewById(R.id.drag_recycler_view);
+        dragDeleteView=findViewById(R.id.drag_delete_view);
         mActivity=this;
         RxPicker.init(new RxPickerImageLoader() {
             @Override
@@ -64,16 +70,20 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
             @SuppressLint("CheckResult")
             @Override
             public void onClick() {
-                RxPicker.of().limit(1, 1).single(true).start(mActivity)
-                        .subscribe(new Consumer<List<ImageItem>>() {
-                            @Override
-                            public void accept(List<ImageItem> imageItems) throws Exception {
-                                mImageItems.removeLast();
-                                mImageItems.add(imageItems.get(0));
-                                mImageItems.addLast(imageItem);
-                                dragAdapter.refresh(mImageItems);
-                            }
-                        });
+                if (mImageItems.size()==10){
+                    Toast.makeText(mActivity, "最多添加9张图片", Toast.LENGTH_SHORT).show();
+                }else {
+                    RxPicker.of().single(false).limit(1,10-mImageItems.size()).start(mActivity)
+                            .subscribe(new Consumer<List<ImageItem>>() {
+                                @Override
+                                public void accept(List<ImageItem> imageItems) throws Exception {
+                                    mImageItems.removeLast();
+                                    mImageItems.addAll(imageItems);
+                                    mImageItems.addLast(imageItem);
+                                    dragAdapter.refresh(mImageItems);
+                                }
+                            });
+                }
             }
 
             @Override
@@ -100,8 +110,10 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
     public void onDragging(boolean isDragging, RecyclerView.ViewHolder viewHolder) {
         if (isDragging){
             viewHolder.itemView.setAlpha(0.5f);
+            dragDeleteView.setVisibility(View.VISIBLE);
         }else {
             viewHolder.itemView.setAlpha(1f);
+            dragDeleteView.setVisibility(View.INVISIBLE);
         }
     }
 }
