@@ -69,7 +69,7 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
                     Toast.makeText(mActivity, "最多添加9张图片", Toast.LENGTH_SHORT).show();
                 }else {
                     RxPicker.of().single(false).camera(true)
-                            .limit(3,10-mImageItems.size()).start(mActivity)
+                            .limit(1,10-mImageItems.size()).start(mActivity)
                             .subscribe(new Consumer<List<ImageItem>>() {
                                 @Override
                                 public void accept(List<ImageItem> imageItems) throws Exception {

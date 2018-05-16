@@ -6,6 +6,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
+import com.luhuan.rxsimple.utils.Resolution;
+
 import io.reactivex.annotations.NonNull;
 
 import static android.support.v7.widget.helper.ItemTouchHelper.*;
@@ -68,7 +70,8 @@ public class DragTouchCallBack extends ItemTouchHelper.Callback {
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         Log.d("Y", "onChildDraw: " + dY);
-        if (dY > recyclerView.getHeight()-viewHolder.itemView.getBottom()-100) {
+        if (dY > recyclerView.getHeight()-viewHolder.itemView.getBottom()- Resolution.dip2px
+                (recyclerView.getContext(),50)) {
             if (handUp) {
                 //删除完成前隐藏
                 if (viewHolder.itemView.getVisibility()== View.VISIBLE){
