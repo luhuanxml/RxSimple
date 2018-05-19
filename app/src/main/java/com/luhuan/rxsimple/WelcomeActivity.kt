@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.luhuan.rxsimple.bezier.BezierActivity
 import com.luhuan.rxsimple.design.ScrollingActivity
 import com.luhuan.rxsimple.drag.DragActivity
 import com.luhuan.rxsimple.drawer.DrawerActivity
@@ -26,6 +27,9 @@ class WelcomeActivity : AppCompatActivity() {
         }
         to_scrolling.setOnClickListener {
             openActivity(ScrollingActivity::class.java)
+        }
+        to_bezier.setOnClickListener{
+            openActivity(BezierActivity::class.java)
         }
     }
 
