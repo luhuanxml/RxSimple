@@ -30,10 +30,6 @@ public class BezierWave extends View implements View.OnClickListener {
     private int mWaveCount;
     private int mCenterY;
 
-    public BezierWave(Context context) {
-        super(context);
-    }
-
     public BezierWave(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mPath = new Path();
@@ -42,10 +38,6 @@ public class BezierWave extends View implements View.OnClickListener {
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         setOnClickListener(this);
-    }
-
-    public BezierWave(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
     }
 
     @Override
@@ -77,6 +69,7 @@ public class BezierWave extends View implements View.OnClickListener {
                     mCenterY - 60,
                     i * waveLength + mOffset,
                     mCenterY);
+            //60是起伏高度
         }
         mPath.lineTo(mViewWith, mViewHeight);
         mPath.lineTo(0, mViewHeight);

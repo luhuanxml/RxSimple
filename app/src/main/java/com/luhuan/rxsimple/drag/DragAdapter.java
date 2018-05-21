@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -16,25 +17,21 @@ import java.util.LinkedList;
 
 public class DragAdapter extends RecyclerView.Adapter<DragAdapter.Holder> {
 
-    Context mContext;
-    LinkedList<ImageItem> mList;
-    LayoutInflater inflater;
-    OnDragClickListener onDragClickListener;
-
-    //item点击事件设置回调
-    public void setOnDragClickListener(OnDragClickListener onDragClickListener) {
-        this.onDragClickListener = onDragClickListener;
-    }
-
     public static final int NORMAL = 111;
     public static final int ADD_BUTTON = 222;
-
+    private Context mContext;
+    private LinkedList<ImageItem> mList;
+    private OnDragClickListener onDragClickListener;
     private RequestOptions requestOptions = new RequestOptions().centerCrop();
 
     public DragAdapter(Context context, LinkedList<ImageItem> list) {
         mContext = context;
         mList = list;
-        inflater = LayoutInflater.from(mContext);
+    }
+
+    //item点击事件设置回调
+    public void setOnDragClickListener(OnDragClickListener onDragClickListener) {
+        this.onDragClickListener = onDragClickListener;
     }
 
     public void refresh(LinkedList<ImageItem> mList) {
@@ -62,26 +59,32 @@ public class DragAdapter extends RecyclerView.Adapter<DragAdapter.Holder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
+    public void onBindViewHolder(@NonNull final Holder holder, final int position) {
+        ImageItem imageItem = mList.get(position);
         if (position != mList.size() - 1) {
-            String path = mList.get(position).getPath();
-            Glide.with(mContext).load(path).apply(requestOptions).into(holder.squareView);
+            Glide.with(mContext).load(imageItem.getPath()).apply(requestOptions).into(holder.squareView);
         } else {
             Glide.with(mContext).load(R.mipmap.ic_launcher).apply(requestOptions).into(holder.squareView);
         }
-        if (holder.getItemViewType()==ADD_BUTTON){
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.getItemViewType() == ADD_BUTTON) {
                     onDragClickListener.onClick();
                 }
-            });
-        }
+                Toast.makeText(mContext, String.valueOf(position), Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mList == null ? 0 : mList.size();
+    }
+
+    public interface OnDragClickListener {
+        void onClick();
     }
 
     class Holder extends RecyclerView.ViewHolder {
@@ -91,10 +94,5 @@ public class DragAdapter extends RecyclerView.Adapter<DragAdapter.Holder> {
             super(itemView);
             squareView = (SquareView) itemView;
         }
-    }
-
-    public interface OnDragClickListener{
-        void onClick();
-        void onLongClick();
     }
 }

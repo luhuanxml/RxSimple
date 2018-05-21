@@ -36,10 +36,6 @@ public class BezierCurve extends View {
 
     private Path mPath=new Path();
 
-    public BezierCurve(Context context) {
-        super(context);
-    }
-
     public BezierCurve(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         //设置抗锯齿
@@ -54,10 +50,6 @@ public class BezierCurve extends View {
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setStyle(Paint.Style.STROKE);
         mTextPaint.setTextSize(20f);
-    }
-
-    public BezierCurve(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
     }
 
     @Override

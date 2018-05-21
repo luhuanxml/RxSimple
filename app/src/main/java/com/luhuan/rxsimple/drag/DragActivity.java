@@ -8,17 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.bean.ImageItem;
-import com.caimuhao.rxpicker.utils.RxPickerImageLoader;
 import com.luhuan.rxsimple.R;
 import com.luhuan.rxsimple.constraint.CustomItemDecoration;
 
@@ -54,6 +48,7 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
         mImageItems=new LinkedList<>();
         mImageItems.add(imageItem);
         dragAdapter=new DragAdapter(mActivity,mImageItems);
+        dragRecyclerView.setHasFixedSize(true);
         dragRecyclerView.setLayoutManager(new GridLayoutManager(mActivity,spanCount));
         dragRecyclerView.setAdapter(dragAdapter);
         CustomItemDecoration customItemDecoration=new CustomItemDecoration();
@@ -81,11 +76,6 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
                             });
                 }
             }
-
-            @Override
-            public void onLongClick() {
-
-            }
         });
     }
 
@@ -103,13 +93,12 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
     }
 
     @Override
-    public void onDragging(boolean isDragging, RecyclerView.ViewHolder viewHolder) {
-        if (isDragging){
-            viewHolder.itemView.setAlpha(0.5f);
+    public void onDragging() {
             dragDeleteView.setVisibility(View.VISIBLE);
-        }else {
-            viewHolder.itemView.setAlpha(1f);
+    }
+
+    @Override
+    public void onDragged() {
             dragDeleteView.setVisibility(View.INVISIBLE);
-        }
     }
 }
