@@ -40,6 +40,11 @@
                 android:layout_height="wrap_content"
                 android:text="贝塞尔曲线学习"/>
 
+        <Button android:id="@+id/to_use_rxfus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="带背压RxBus学习"/>
+
     </LinearLayout>
 
 </ScrollView>

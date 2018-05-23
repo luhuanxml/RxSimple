@@ -15,10 +15,12 @@ import static android.support.v7.widget.helper.ItemTouchHelper.*;
 public class DragTouchCallBack extends ItemTouchHelper.Callback {
 
     private DragListener dragListener;
-    private boolean isExChange = false;
 
     //拖拽后手抬起来
     private boolean handUp = false;
+
+    //只在handUp=true的时候做处理
+    private boolean isExChange = false;
 
     public DragTouchCallBack(@NonNull DragListener dragListener) {
         this.dragListener = dragListener;

@@ -67,10 +67,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar">
         </activity>
-
         <activity
             android:name=".bezier.BezierActivity"
             android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".FusActivity">
         </activity>
     </application>
 
