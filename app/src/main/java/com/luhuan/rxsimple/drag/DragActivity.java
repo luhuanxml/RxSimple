@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,14 +14,11 @@ import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.bean.ImageItem;
 import com.luhuan.rxsimple.R;
 import com.luhuan.rxsimple.constraint.CustomItemDecoration;
+import com.luhuan.rxsimple.utils.ToolKt;
 
 import java.util.LinkedList;
-import java.util.List;
-
-import io.reactivex.functions.Consumer;
 
 public class DragActivity extends AppCompatActivity implements DragTouchCallBack.DragListener {
-
     LinkedList<ImageItem> mImageItems;
 
     RecyclerView dragRecyclerView;
@@ -36,10 +32,18 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
     private final int spanCount=3;
     private ImageItem imageItem;
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drag);
+
+        int i= ToolKt.getDp(10);
+        ToolKt.log("DP",String.valueOf(i));
+        String b=getIntent().getStringExtra("aaa");
+        String d=getIntent().getStringExtra("ccc");
+        int f=getIntent().getIntExtra("eee",0);
+        ToolKt.log("DP",b+d+f);
         dragRecyclerView=findViewById(R.id.drag_recycler_view);
         dragDeleteView=findViewById(R.id.drag_delete_view);
         mActivity=this;
@@ -56,25 +60,18 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
         DragTouchCallBack dragTouchCallBack=new DragTouchCallBack(mActivity);
         ItemTouchHelper itemTouchHelper=new ItemTouchHelper(dragTouchCallBack);
         itemTouchHelper.attachToRecyclerView(dragRecyclerView);
-        dragAdapter.setOnDragClickListener(new DragAdapter.OnDragClickListener() {
-            @SuppressLint("CheckResult")
-            @Override
-            public void onClick() {
-                if (mImageItems.size()==10){
-                    Toast.makeText(mActivity, "最多添加9张图片", Toast.LENGTH_SHORT).show();
-                }else {
-                    RxPicker.of().single(false).camera(true)
-                            .limit(1,10-mImageItems.size()).start(mActivity)
-                            .subscribe(new Consumer<List<ImageItem>>() {
-                                @Override
-                                public void accept(List<ImageItem> imageItems) throws Exception {
-                                    mImageItems.removeLast();
-                                    mImageItems.addAll(imageItems);
-                                    mImageItems.addLast(imageItem);
-                                    dragAdapter.refresh(mImageItems);
-                                }
-                            });
-                }
+        dragAdapter.setOnDragClickListener(() -> {
+            if (mImageItems.size()==10){
+                Toast.makeText(mActivity, "最多添加9张图片", Toast.LENGTH_SHORT).show();
+            }else {
+                RxPicker.of().single(false).camera(true)
+                        .limit(1,10-mImageItems.size()).start(mActivity)
+                        .subscribe(imageItems -> {
+                            mImageItems.removeLast();
+                            mImageItems.addAll(imageItems);
+                            mImageItems.addLast(imageItem);
+                            dragAdapter.refresh(mImageItems);
+                        });
             }
         });
     }
@@ -85,10 +82,8 @@ public class DragActivity extends AppCompatActivity implements DragTouchCallBack
         mImageItems.add(toPosition,imageItem);
     }
 
-    int i=0;
     @Override
     public void onDeleteResult(int deletePosition) {
-        Log.d("deletePosition", "onDeleteResult: "+i++);
         mImageItems.remove(deletePosition);
     }
 

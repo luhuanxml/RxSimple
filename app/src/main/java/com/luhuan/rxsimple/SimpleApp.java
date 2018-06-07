@@ -10,12 +10,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.caimuhao.rxpicker.RxPicker;
 import com.caimuhao.rxpicker.utils.RxPickerImageLoader;
+import com.luhuan.rxsimple.utils.GlideApp;
 
 public class SimpleApp extends MultiDexApplication {
 
     @Override
     public void onCreate() {
         super.onCreate();
+        GlideApp.init(getApplicationContext());
         RxPicker.init(new RxPickerImageLoader() {
             @Override
             public void display(ImageView imageView, String path, int width, int height) {

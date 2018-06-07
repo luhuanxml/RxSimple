@@ -3,7 +3,6 @@ package com.luhuan.rxsimple.drag;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -12,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.caimuhao.rxpicker.bean.ImageItem;
 import com.luhuan.rxsimple.R;
+import com.luhuan.rxsimple.utils.GlideApp;
 
 import java.util.LinkedList;
 
@@ -62,7 +62,8 @@ public class DragAdapter extends RecyclerView.Adapter<DragAdapter.Holder> {
     public void onBindViewHolder(@NonNull final Holder holder, final int position) {
         ImageItem imageItem = mList.get(position);
         if (position != mList.size() - 1) {
-            Glide.with(mContext).load(imageItem.getPath()).apply(requestOptions).into(holder.squareView);
+            //Glide.with(mContext).load(imageItem.getPath()).apply(requestOptions).into(holder.squareView);
+            GlideApp.loadCircle(imageItem.getPath()).into(holder.squareView);
         } else {
             Glide.with(mContext).load(R.mipmap.ic_launcher).apply(requestOptions).into(holder.squareView);
         }

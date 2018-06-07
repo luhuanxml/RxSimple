@@ -1,16 +1,15 @@
 package com.luhuan.rxsimple.constraint
 
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.luhuan.rxsimple.R
+import com.luhuan.rxsimple.utils.inflate
 
 class ConstraintAdapter : RecyclerView.Adapter<ConstraintAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.item_constraint,parent,
-                false)
+        val view =parent.inflate(R.layout.item_constraint)
         return Holder(view)
     }
 

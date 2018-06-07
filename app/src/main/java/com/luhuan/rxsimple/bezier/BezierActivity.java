@@ -6,22 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.luhuan.rxsimple.R;
+import com.luhuan.rxsimple.utils.ToolKt;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.internal.observers.EmptyCompletableObserver;
-import io.reactivex.internal.operators.observable.ObservableJust;
 import io.reactivex.schedulers.Schedulers;
 
 public class BezierActivity extends AppCompatActivity {
@@ -39,8 +30,24 @@ public class BezierActivity extends AppCompatActivity {
         mlist.add(5);
         mlist.add(6);
 
-        Observable.just(1, 1, 2, 1, 1).distinctUntilChanged()
-                .subscribe(integer -> log("distinct", integer.toString()));
+        ToolKt.getDp(111);
+
+//        Observable.fromIterable(mlist).takeWhile(integer -> integer!=3)
+//                .subscribe(integer -> Log.d("takeWhile", "onCreate: "+integer));
+
+//        Observable.just(1, 2, 4,3 , 5, 6, 7).toSortedList().subscribe(integers ->
+//                Log.d("toList", String.valueOf(integers.size())));
+//
+//        Observable.just(1, 2, 3, 4, 5, 6, 7).toMap(integer -> String.valueOf(integer)+"key")
+//                .subscribe(new Consumer<Map<String, Integer>>() {
+//                    @Override
+//                    public void accept(Map<String, Integer> stringIntegerMap) throws Exception {
+//                        Log.d("toMap", "accept: "+stringIntegerMap.toString());
+//                    }
+//                });
+
+//        Observable.just(1, 1, 2, 1, 1).distinctUntilChanged()
+//                .subscribe(integer -> log("distinct", integer.toString()));
 //        Observable.fromIterable(mlist).startWith(mlist).compose(replayIM())
 //                .subscribe(integer -> Log.d("startWith", "onCreate: " + integer));
 //

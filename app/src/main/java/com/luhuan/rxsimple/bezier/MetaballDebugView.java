@@ -22,7 +22,6 @@ public class MetaballDebugView extends View {
 
     private Paint paint = new Paint();
 
-
     private float handleLenRate = 2f;
     private final float radius = 60;
     private final float SCALE_RATE = 0.3f;

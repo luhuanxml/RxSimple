@@ -67,12 +67,7 @@ public class BezierCircle extends View implements View.OnClickListener {
             }
         });
         mTwoAnimator = ObjectAnimator.ofFloat(this, "circleOneY", mCircleTwoY, mCircleOneY);
-        mTwoAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                invalidate();
-            }
-        });
+        mTwoAnimator.addUpdateListener(valueAnimator -> invalidate());
 
         animatorSet = new AnimatorSet();
         animatorSet.setDuration(1000);

@@ -73,6 +73,8 @@
         </activity>
         <activity android:name=".FusActivity">
         </activity>
+        <activity android:name=".design.DesignActivity">
+        </activity>
     </application>
 
 </manifest>

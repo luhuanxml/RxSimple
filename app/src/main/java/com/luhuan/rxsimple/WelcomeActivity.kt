@@ -1,43 +1,44 @@
 package com.luhuan.rxsimple
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.luhuan.rxsimple.bezier.BezierActivity
+import com.luhuan.rxsimple.design.DesignActivity
 import com.luhuan.rxsimple.design.ScrollingActivity
 import com.luhuan.rxsimple.drag.DragActivity
 import com.luhuan.rxsimple.drawer.DrawerActivity
 import com.luhuan.rxsimple.news.NewsActivity
-import com.luhuan.rxsimple.utils.RxFus
-import io.reactivex.disposables.Disposable
+import com.luhuan.rxsimple.utils.*
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : AppCompatActivity() {
 
-    val TAG = WelcomeActivity::class.java.name
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
-        to_drag.setOnClickListener {
-            openActivity(DragActivity::class.java)
+        Observable.just(11).compose(scheduler())
+        to_drag.click().subscribe{
+            open<DragActivity>("aaa" to "bbb","ccc" to "ddd","eee" to 333)
         }
         to_drawer.setOnClickListener {
-            openActivity(DrawerActivity::class.java)
+            open<DrawerActivity>()
         }
         to_use_dagger.setOnClickListener {
-            openActivity(NewsActivity::class.java)
+            open<NewsActivity>()
         }
         to_scrolling.setOnClickListener {
-            openActivity(ScrollingActivity::class.java)
+            open<ScrollingActivity>()
         }
         to_bezier.setOnClickListener {
-            openActivity(BezierActivity::class.java)
+            open<BezierActivity>()
         }
         to_use_rxfus.setOnClickListener {
-            openActivity(FusActivity::class.java)
+            open<FusActivity>()
+        }
+        to_design.setOnClickListener{
+            open<DesignActivity>()
         }
     }
 
@@ -45,32 +46,30 @@ class WelcomeActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG, "onStart")
-        RxFus.getSingle().except(String::class.java)
-                .subscribe({
-                    Log.d("RXFus", it)
-                    //disposable.dispose()
-                })
+        log("onStart")
+        // 接收相同Class,使用type判断对其中的内容进行处理
+        RxFus.single.except().subscribe({
+            if (it.type == 5) {
+                log(it.obj.toString())
+            } else if (it.type == 6) {
+                log(it.obj.toString())
+            }
+        })
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d(TAG, "onPause")
+        log("onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d(TAG, "onStop")
+        log("onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG, "onDestroy")
+        log( "onDestroy")
+        RxFus.single.unRegister()
     }
-
-    //规定class是AppCompatActivity.class 的子类 使用到out关键字
-    private fun openActivity(clazz: Class<out AppCompatActivity>) {
-        startActivity(Intent(this, clazz))
-    }
-
 }
